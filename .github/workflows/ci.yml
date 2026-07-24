@@ -1,33 +1,27 @@
-name: Release Workflow
+name: Create Trigger Workflow
 
 on:
-  release:
-    types:
-      - published
-      - edited
+  create:
 
 jobs:
-  release-job:
+  create-job:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
       - name: Show Event
-        run: echo "Action = ${{ github.event.action }}"
+        run: echo "Action = Branch or Tag Created"
 
-      - name: Show Release Name
-        run: echo "Release Name = ${{ github.event.release.name }}"
+      - name: Show Ref Type
+        run: echo "Type = ${{ github.event.ref_type }}"
 
-      - name: Show Tag
-        run: echo "Tag = ${{ github.event.release.tag_name }}"
+      - name: Show Ref Name
+        run: echo "Name = ${{ github.event.ref }}"
 
       - name: Show Repository
         run: echo "Repository = ${{ github.repository }}"
 
       - name: Show User
-        run: echo "Triggered By = ${{ github.actor }}"
+        run: echo "Created By = ${{ github.actor }}"
 
       - name: Success
-        run: echo "Release Trigger Executed Successfully!"
+        run: echo "Create Trigger Executed Successfully!"
