@@ -1,31 +1,33 @@
-name: Pull Request Review Workflow
+name: Release Workflow
 
 on:
-  pull_request_review:
+  release:
     types:
-      - submitted
+      - published
       - edited
-      - dismissed
 
 jobs:
-  review-job:
+  release-job:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Review Action
-        run: echo "Review Action = ${{ github.event.action }}"
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Review State
-        run: echo "Review State = ${{ github.event.review.state }}"
+      - name: Show Event
+        run: echo "Action = ${{ github.event.action }}"
 
-      - name: PR Title
-        run: echo "Pull Request = ${{ github.event.pull_request.title }}"
+      - name: Show Release Name
+        run: echo "Release Name = ${{ github.event.release.name }}"
 
-      - name: Reviewer
-        run: echo "Reviewer = ${{ github.actor }}"
+      - name: Show Tag
+        run: echo "Tag = ${{ github.event.release.tag_name }}"
 
-      - name: Review Comment
-        run: echo "Comment = ${{ github.event.review.body }}"
+      - name: Show Repository
+        run: echo "Repository = ${{ github.repository }}"
+
+      - name: Show User
+        run: echo "Triggered By = ${{ github.actor }}"
 
       - name: Success
-        run: echo "Pull Request Review Trigger Executed Successfully!"
+        run: echo "Release Trigger Executed Successfully!"
