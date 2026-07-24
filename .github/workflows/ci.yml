@@ -1,24 +1,28 @@
-name: Issues Workflow
+name: Issue Comment Workflow
 
 on:
-  issues:
+  issue_comment:
     types:
-      - opened
+      - created
       - edited
-      - closed
-
-  workflow_dispatch:
+      - deleted
 
 jobs:
-  issue-job:
+  comment-job:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print Event
-        run: echo "An Issue event triggered this workflow!"
+      - name: Display Event
+        run: echo "Comment Event = ${{ github.event.action }}"
 
-      - name: Show Event Type
-        run: echo "Event = ${{ github.event.action }}"
+      - name: Display Comment
+        run: echo "Comment = ${{ github.event.comment.body }}"
 
-      - name: Show Issue Title
-        run: echo "Issue Title = ${{ github.event.issue.title }}"
+      - name: Display Issue Title
+        run: echo "Issue = ${{ github.event.issue.title }}"
+
+      - name: Display User
+        run: echo "Commented By = ${{ github.actor }}"
+
+      - name: Success
+        run: echo "Issue Comment Trigger Executed Successfully!"
