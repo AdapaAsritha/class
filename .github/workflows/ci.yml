@@ -1,28 +1,33 @@
-name: Issue Comment Workflow
+name: Release Workflow
 
 on:
-  issue_comment:
+  release:
     types:
-      - created
+      - published
       - edited
-      - deleted
 
 jobs:
-  comment-job:
+  release-job:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Display Event
-        run: echo "Comment Event = ${{ github.event.action }}"
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Display Comment
-        run: echo "Comment = ${{ github.event.comment.body }}"
+      - name: Show Event
+        run: echo "Action = ${{ github.event.action }}"
 
-      - name: Display Issue Title
-        run: echo "Issue = ${{ github.event.issue.title }}"
+      - name: Show Release Name
+        run: echo "Release Name = ${{ github.event.release.name }}"
 
-      - name: Display User
-        run: echo "Commented By = ${{ github.actor }}"
+      - name: Show Tag
+        run: echo "Tag = ${{ github.event.release.tag_name }}"
+
+      - name: Show Repository
+        run: echo "Repository = ${{ github.repository }}"
+
+      - name: Show User
+        run: echo "Triggered By = ${{ github.actor }}"
 
       - name: Success
-        run: echo "Issue Comment Trigger Executed Successfully!"
+        run: echo "Release Trigger Executed Successfully!"
