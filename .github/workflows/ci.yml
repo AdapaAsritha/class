@@ -1,28 +1,31 @@
-name: Issue Comment Workflow
+name: Pull Request Review Workflow
 
 on:
-  issue_comment:
+  pull_request_review:
     types:
-      - created
+      - submitted
       - edited
-      - deleted
+      - dismissed
 
 jobs:
-  comment-job:
+  review-job:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Display Event
-        run: echo "Comment Event = ${{ github.event.action }}"
+      - name: Review Action
+        run: echo "Review Action = ${{ github.event.action }}"
 
-      - name: Display Comment
-        run: echo "Comment = ${{ github.event.comment.body }}"
+      - name: Review State
+        run: echo "Review State = ${{ github.event.review.state }}"
 
-      - name: Display Issue Title
-        run: echo "Issue = ${{ github.event.issue.title }}"
+      - name: PR Title
+        run: echo "Pull Request = ${{ github.event.pull_request.title }}"
 
-      - name: Display User
-        run: echo "Commented By = ${{ github.actor }}"
+      - name: Reviewer
+        run: echo "Reviewer = ${{ github.actor }}"
+
+      - name: Review Comment
+        run: echo "Comment = ${{ github.event.review.body }}"
 
       - name: Success
-        run: echo "Issue Comment Trigger Executed Successfully!"
+        run: echo "Pull Request Review Trigger Executed Successfully!"
